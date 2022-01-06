@@ -35,7 +35,6 @@ function pushStack(item) {
     popUpStack.push(item);
     return item;
 }
-}
 async function makeItem() {
     let item = templItem;
     const tab = await getCurrentTab();
