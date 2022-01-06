@@ -9,7 +9,6 @@ function callPopUp() {
     } else {
         popUpStack = JSON.parse(localStack);
     }
-    alert(JSON.stringify(popUpStack))
     rebuildItems()
 }
 
@@ -31,7 +30,6 @@ function initStack() {
     return [];
 }
 function pushStack(item) {
-    alert(JSON.stringify(popUpStack))
     popUpStack.push(item);
     return item;
 }
