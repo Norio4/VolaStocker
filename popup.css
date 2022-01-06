@@ -1,0 +1,24 @@
+#results{
+  font-size: 12px;
+}
+code {
+  padding: 2px;
+  height: 500px;
+  width: 400px;
+  font-size: 105%;
+}
+* {
+  word-break: break-all;
+}
+pre {
+  word-wrap: break-all;
+  overflow: scroll;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+body {
+  width: 400px;
+  padding: 10px;
+}
