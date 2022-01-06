@@ -31,6 +31,7 @@ function initStack() {
 }
 function pushStack(item) {
     popUpStack.push(item);
+    localStorage.setItem('stack', JSON.stringify(popUpStack));
     return item;
 }
 async function makeItem() {
@@ -51,7 +52,6 @@ async function makeItem() {
         const summary = elements[0].nextElementSibling.textContent.substring(0, 50);
         item.summary.content = summary;
     }
-    alert("item: "+JSON.stringify(item));
     pushStack(item.to_obj());
     rebuildItems()
 }
