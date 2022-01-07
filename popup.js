@@ -179,16 +179,16 @@ let templItem = {
         if (!arg.title){
             line += ',';
         } else {
-            line += arg.title+',';
+            line += arg.title.replaceAll('\n', '').replaceAll('\t', '').replaceAll('  ', '').replaceAll(',', '_')+',';
         }
         if (!arg.headings){
             line += ',';
         } else {
-            line += arg.headings+',';
+            line += arg.headings.join(" & ").replaceAll('\n', '').replaceAll('\t', '').replaceAll('  ', '').replaceAll(',', '_')+',';
         }
         if (!arg.summary){
         } else {
-            line += arg.summary;
+            line += arg.summary.replaceAll('\n', '\\n').replaceAll('\t', '').replaceAll('  ', '').replaceAll(',', '_');
         }
         return line+'\n';
     }
@@ -202,7 +202,7 @@ function downloadStockAsCSV() {
         if (!title) {
             title = '';
         }
-        var content = 'url,title,heading,summary';
+        var content = 'url,title,heading,summary' + '\n';
         for (var i=0; i< popUpStack.length; i++) {
             let item = popUpStack[i];
             content += templItem.convert_line(item);
