@@ -177,6 +177,10 @@ function downloadStockAsCSV() {
     let file_name = 'volaStock_' + title + '.csv';
     var download_node = document.getElementById('download');
     download_node.setAttribute('download', file_name)
+
+    initStack();
+    rebuildItems();
+
     if (window.navigator.msSaveBlob) {
         window.navigator.msSaveBlob(blob, file_name);
         window.navigator.msSaveOrOpenBlob(blob, file_name);
