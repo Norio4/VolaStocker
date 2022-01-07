@@ -3,13 +3,22 @@
     <head>
       <meta charset="utf-8">
       <title></title>
+      <link rel="stylesheet" href="bulma.css">
       <link rel="stylesheet" href="popup.css">
     </head>
     <body>
         <div id="main">
-            <button class="btn" type="button" >Volatile Stock!</button>
-            <ul id="items">
-            </ul>
+            <div class="container">
+                <button class="btn button is-small is-fullwidth" type="button" >Stock this page</button>
+            </div>
+            <div class="container" style="padding-top:20px;">
+                <ul id="items">
+                </ul>
+            </div>
+            <div class="container">
+                <a class="download button is-small is-fullwidth" id="download" href="#">Dump as CSV</a>
+                <!-- <a class="download button is-small is-fullwidth" id="download" href="#" download="volaStock.csv">Dump as CSV</a> -->
+            </div>
         </div>
         <script src="popup.js"></script>
     </body>

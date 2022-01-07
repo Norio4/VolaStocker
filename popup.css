@@ -19,6 +19,7 @@ ul {
   padding: 0;
 }
 body {
+  height: 400px;
   width: 400px;
   padding: 10px;
 }
