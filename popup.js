@@ -16,7 +16,7 @@ function rebuildItems() {
     var list = document.getElementById('items');
     list.innerHTML = '';
 
-    for (var i=0; i< popUpStack.length; i++) {
+    for (var i=0; i<popUpStack.length; i++) {
         const id_name = i + '_del_li';
 
         let item = popUpStack[i];
@@ -163,29 +163,33 @@ let templItem = {
 }
 
 function downloadStockAsCSV() {
-    let title = window.prompt('Label current urls stock', '');
-    if (!title) {
-        title = '';
-    }
-    var content = '';
-    for (var i=0; i< popUpStack.length; i++) {
-        let item = popUpStack[i];
-        content += templItem.convert_line(item);
-    }
-    let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-    var blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
-    let file_name = 'volaStock_' + title + '.csv';
-    var download_node = document.getElementById('download');
-    download_node.setAttribute('download', file_name)
-
-    initStack();
-    rebuildItems();
-
-    if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(blob, file_name);
-        window.navigator.msSaveOrOpenBlob(blob, file_name);
+    if (popUpStack.length == 0) {
+        alert('Stock is blank.');
     } else {
-        download_node.href = window.URL.createObjectURL(blob);
+        let title = window.prompt('Label current urls stock', '');
+        if (!title) {
+            title = '';
+        }
+        var content = '';
+        for (var i=0; i< popUpStack.length; i++) {
+            let item = popUpStack[i];
+            content += templItem.convert_line(item);
+        }
+        let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+        var blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
+        let file_name = 'volaStock_' + title + '.csv';
+        var download_node = document.getElementById('download');
+        download_node.setAttribute('download', file_name)
+
+        initStack();
+        rebuildItems();
+
+        if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(blob, file_name);
+            window.navigator.msSaveOrOpenBlob(blob, file_name);
+        } else {
+            download_node.href = window.URL.createObjectURL(blob);
+        }
     }
 }
 
