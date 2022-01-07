@@ -12,7 +12,7 @@
 ## Get it
 ### Google
 
-WIP
+ Reviewing now
  
 ## Usage
  
