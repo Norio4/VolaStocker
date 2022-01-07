@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "VolaStocker",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "author": "Norio4 Yahata",
     "description": "Simple Url Clip Box For Volatile Stock",
     "icons": {
@@ -11,7 +11,8 @@
         "128": "icons/128.png"
     },
     "permissions": [
-      "activeTab"
+      "activeTab",
+      "scripting"
     ],
     "action": {
       "default_popup": "popup.html"

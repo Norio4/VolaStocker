@@ -61,13 +61,23 @@ function pushStack(item) {
     localStorage.setItem('stack', JSON.stringify(popUpStack));
     return item;
 }
-async function makeItem() {
-    let item = templItem;
-    item.clear();
+
+async function fetchElements(item) {
     const tab = await getCurrentTab();
     const url = tab.url;
-
     item.url.content = url;
+
+    await chrome.scripting.executeScript(
+        {
+          target: { tabId: tab.id },
+          func: parseHtml,
+          args: [item]
+        },
+        buildElement
+    )
+}
+
+function parseHtml(item) {
     item.title.content = document.title;
 
     const elements = document.getElementsByTagName('h1');
@@ -77,10 +87,32 @@ async function makeItem() {
             item.headings.content.push(elements[i].textContent);
         }
 
-        const summary = elements[0].nextElementSibling.textContent.substring(0, 50);
-        item.summary.content = summary;
+        if (!elements[0].nextElementSibling) {
+        } else {
+            const summary = elements[0].nextElementSibling.textContent.substring(0, 50);
+            item.summary.content = summary;
+        }
+    } else {
     }
-    pushStack(item.to_obj());
+    let obj = {
+        'url': item.url.content,
+        'title': item.title.content,
+        'headings': item.headings.content,
+        'summary': item.summary.content
+    }
+    return JSON.stringify(obj)
+    // return item;
+}
+
+async function makeItem() {
+    let item = templItem;
+    item.clear();
+    await fetchElements(item);
+}
+
+function buildElement(result) {
+    let item = result[0].result;
+    pushStack(JSON.parse(item));
     rebuildItems();
 }
 
@@ -170,7 +202,7 @@ function downloadStockAsCSV() {
         if (!title) {
             title = '';
         }
-        var content = '';
+        var content = 'url,title,heading,summary';
         for (var i=0; i< popUpStack.length; i++) {
             let item = popUpStack[i];
             content += templItem.convert_line(item);
