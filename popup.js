@@ -9,6 +9,7 @@ function callPopUp() {
     } else {
         popUpStack = JSON.parse(localStack);
     }
+    makeItem();
     rebuildItems();
 }
 
